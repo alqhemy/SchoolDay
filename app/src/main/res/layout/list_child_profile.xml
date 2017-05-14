@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="48sp"
+        android:layout_weight="3"
+        style="@style/CardView"
+        >
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:layout_marginStart="@dimen/top_down_margin"
+            android:layout_weight="3"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/tvNis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:layout_marginEnd="@dimen/top_down_margin"
+            android:text="HomeTown" />
+    </android.support.v7.widget.CardView>
+</LinearLayout>

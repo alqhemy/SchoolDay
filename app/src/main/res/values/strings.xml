@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">SchoolDay</string>
+    <string name="action_settings">Settings</string>
+    <string name="fragment_home">fragment_home</string>
+    <string name="account_guru">Account Guru</string>
+    <string name="account_anak">Tambah Account</string>
+    <string name="profile">Profile</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_news">News</string>
+    <string name="topik_berita">Topik berita</string>
+    <string name="account">Account</string>
+    <string name="akun_guru">Akun guru</string>
+    <string name="akun_anak">Tambah Account</string>
+    <string name="register_nik">Nomor handphone anda</string>
+    <string name="register_nis">Nomor nis anak</string>
+</resources>

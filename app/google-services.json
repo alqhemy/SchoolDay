@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "635518581048",
+    "firebase_url": "https://schoolday-35c78.firebaseio.com",
+    "project_id": "schoolday-35c78",
+    "storage_bucket": "schoolday-35c78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635518581048:android:b112c059780e69c8",
+        "android_client_info": {
+          "package_name": "com.media.schoolday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635518581048-funldofpsso70r6up1i8a1cgija4veqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWXcPuBkUX6uc4vh7-L3mP-grSoT_7Vlg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
