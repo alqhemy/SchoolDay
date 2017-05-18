@@ -2,6 +2,7 @@ package com.media.schoolday.fragment
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -12,10 +13,14 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Spinner
 import com.facebook.FacebookSdk.getApplicationContext
+import com.kosalgeek.android.photoutil.CameraPhoto
 import com.kosalgeek.android.photoutil.GalleryPhoto
+import com.kosalgeek.android.photoutil.ImageLoader
 import com.kosalgeek.android.photoutil.PhotoLoader
 import com.media.schoolday.R
 import com.media.schoolday.utility.DbLocal
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_news.*
 import kotlinx.android.synthetic.main.fragment_news_post.*
@@ -26,18 +31,19 @@ import org.jetbrains.anko.toast
 import java.io.FileNotFoundException
 
 
-
 class NewsFragment: Fragment(), AnkoLogger {
 
     lateinit private var linear:LinearLayout
     lateinit var spinner: Spinner
     private val listPhoto:ArrayList<String> = ArrayList()
     private val galeryPhoto = GalleryPhoto(getApplicationContext())
+    private val cameraPhoto =  CameraPhoto(getApplicationContext());
     private val GALERY_REQUEST = 100
+    private val CAMERA_REQUEST = 200
     private val realm = Realm.getDefaultInstance()
 
     interface OnItemSelectedListener {
-        fun onSchoolClick(link: String)
+        fun onPictureClick(link: String)
     }
     var callback: OnItemSelectedListener? = null
 
@@ -67,10 +73,10 @@ class NewsFragment: Fragment(), AnkoLogger {
 
         ibNewsPostDelete.setOnClickListener { removePhoto()}
         ibNewsPostImage.setOnClickListener {
-            startActivityForResult(galeryPhoto.openGalleryIntent(),GALERY_REQUEST)
+            callback!!.onPictureClick("takepicture")
         }
         ibNewsPostChild.setOnClickListener {
-            callback!!.onSchoolClick(spinner.selectedItem.toString())
+
         }
         btNewsPostDraft.setOnClickListener { }
         btNewsPostSend.setOnClickListener { }
@@ -84,11 +90,15 @@ class NewsFragment: Fragment(), AnkoLogger {
         spinner.adapter = adapter
     }
 
-    fun getListClass():ArrayList<String>{
+    fun getListClass():ArrayList<String>?{
         val profile = DbLocal.getProfile()
         val sekolah = DbLocal.schoolList()
-        val kelas  = sekolah.filter { it.nama == profile.teacher.sekolah }.first()
-        return kelas.kelas!!
+        if(sekolah != null) {
+            val filter = sekolah.filter { it.nama == profile!!.teacher.first().sekolah }
+            return filter.first().kelas
+        }else{
+            return null
+        }
     }
 
     private fun removePhoto() {
@@ -97,21 +107,58 @@ class NewsFragment: Fragment(), AnkoLogger {
         activity.toast("clear photo")
     }
 
+    fun takePhoto(option: String){
+        when(option){
+            "Galery" ->{
+                startActivityForResult(galeryPhoto.openGalleryIntent(),GALERY_REQUEST)
+            }
+            "Camera" ->{
+                startActivityForResult(cameraPhoto.takePhotoIntent(),CAMERA_REQUEST)
+            }
+            else -> {
+                CropImage.activity(null)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(context, this@NewsFragment);
+            }
+        }
+
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == RESULT_OK){
-            if(requestCode == GALERY_REQUEST){
-                galeryPhoto.setPhotoUri(data!!.data)
-                addPhoto(galeryPhoto.path)
+        when(resultCode){
+            RESULT_OK -> {
+                when(requestCode){
+                    GALERY_REQUEST -> {
+                        galeryPhoto.setPhotoUri(data!!.data)
+                        addPhoto(galeryPhoto.path, "galery")
+                    }
+                    CAMERA_REQUEST -> {
+                        addPhoto(cameraPhoto.photoPath,"camera")
+                    }
+                    CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                        val result = CropImage.getActivityResult(data)
+                        addPhoto(result.uri.path,"crop")
+                    }
+                }
             }
-
         }
     }
 
-    fun addPhoto(photo: String){
+    fun addPhoto(photo: String,option: String){
         listPhoto.add(photo)
+        var bitmap: Bitmap? = null
         try {
-            val bitmap = PhotoLoader.init().from(galeryPhoto.path).requestSize(512,512).bitmap
+            if(option == "galery") {
+                bitmap = PhotoLoader.init().from(galeryPhoto.path).requestSize(512, 512).bitmap
+            }
+            else{
+                try {
+                    bitmap = ImageLoader.init().from(photo).requestSize(512, 512).getBitmap()
+                }catch (e: FileNotFoundException){
+                    e.printStackTrace()
+                }
+            }
+
             val imageView = ImageView(getApplicationContext())
             val layoutParam = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
             imageView.apply {

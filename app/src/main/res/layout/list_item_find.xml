@@ -1,24 +1,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_item"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <android.support.v7.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        style="@style/CardView"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvFindListItemName"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:paddingStart="@dimen/top_down_margin"
-            android:gravity="start|center"
-            android:textAlignment="gravity"
-            android:layout_height="32dp"
-            android:text="Name" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/top_down_margin"
+            android:layout_marginEnd="@dimen/top_down_margin"
+            android:layout_marginStart="@dimen/top_down_margin"
+            android:layout_marginTop="@dimen/top_down_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvFindItemUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_down_margin"
+                android:text="TextView"
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/colorText87"
+                android:textColorHighlight="?attr/colorPrimary"
+                android:textColorHint="?attr/colorPrimary" />
+            <TextView
+                android:id="@+id/tvFindItemDescription"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:textColor="@color/colorText70"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top_down_margin"
+                android:layout_marginBottom="@dimen/top_down_margin"
+                android:text="TextView" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvFindItemDate"
+                    style="@style/medium_caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/tvFindItemUserTitle"
+                    style="@style/medium_caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
+
 </LinearLayout>

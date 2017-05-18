@@ -15,4 +15,6 @@
     <string name="akun_anak">Tambah Account</string>
     <string name="register_nik">Nomor handphone anda</string>
     <string name="register_nis">Nomor nis anak</string>
+    <string name="action_update">update</string>
+    <string name="comment_view">Comment</string>
 </resources>

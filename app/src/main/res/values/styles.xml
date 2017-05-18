@@ -19,12 +19,13 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="smll_caption">
-        <item name="android:textColor">@color/colorDarkGray</item>
+        <item name="android:textColor">@color/colorText54</item>
         <item name="android:textSize">@dimen/small_caption</item>
     </style>
 
     <style name="medium_caption">
-        <item name="android:textColor">@color/colorDarkGray</item>
+        <item name="android:textColor">@color/colorText54</item>
         <item name="android:textSize">@dimen/medium_caption</item>
     </style>
+
 </resources>

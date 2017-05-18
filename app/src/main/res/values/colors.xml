@@ -6,4 +6,13 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightGray">#EEEEEE</color>
     <color name="colorDarkGray">#9E9E9E</color>
+
+    <color name="colorText87">#212121</color>
+    <color name="colorText70">#4D4D4D</color>
+    <color name="colorText50">#808080</color>
+    <color name="colorText54">#767676</color>
+    <color name="colorText38">#9F9F9F</color>
+
+
+    <color name="colorDarkDivider">#E1E1E1</color>
 </resources>

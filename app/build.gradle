@@ -35,6 +35,9 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
     }
+    dexOptions {
+        jumboMode = true
+    }
 
 }
 
@@ -70,6 +73,7 @@ dependencies {
     compile 'com.github.orhanobut:wasp:1.15'
     compile 'io.realm:android-adapters:2.0.0'
     compile 'me.riddhimanadib.form-master:form-master:1.0.0'
+    compile 'com.theartofdev.edmodo:android-image-cropper:2.4.+'
     testCompile 'junit:junit:4.12'
     compile files('libs/PhotoUtil.jar')
 }

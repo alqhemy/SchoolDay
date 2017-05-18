@@ -1,125 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginEnd="@dimen/default_margin"
-    android:layout_marginStart="@dimen/default_margin"
+    android:layout_marginEnd="@dimen/top_down_margin"
+    android:layout_marginStart="@dimen/top_down_margin"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView"
+        android:padding="4dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin"
-        android:orientation="horizontal">
+        android:text="@string/topik_berita"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/topik_berita" />
-
-        <Spinner
-            android:id="@+id/spNewsPostTopic"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tiNewsPostTitle"
+    <Spinner
+        android:id="@+id/spNewsPostTopic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        >
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView" />
 
-        <EditText
-            style="@style/Base.TextAppearance.AppCompat.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Judul"
-            android:inputType="textMultiLine" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tiNewsPostDescription"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Deskripsi..."
-            android:inputType="textMultiLine"
-            android:textAlignment="viewStart" />
-    </android.support.design.widget.TextInputLayout>
 
     <ScrollView
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="@dimen/default_margin"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="wrap_content">
-
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearMenuPost">
         <LinearLayout
-            android:id="@+id/linearMain"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/parent_match"
-            android:layout_marginTop="@dimen/default_margin"
-            android:orientation="vertical"></LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/lineaScroll">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiNewsPostTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView"
+                android:layout_marginTop="@dimen/default_margin">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="hint" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tiNewsPostTitle"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="16dp"
+                android:id="@+id/textInputLayout3">
+
+                <EditText
+                    android:id="@+id/tiNewsPostDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/topik_berita" />
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linearMain"/>
+
+        </LinearLayout>
     </ScrollView>
 
-    <android.support.v7.widget.CardView
-        android:layout_marginTop="@dimen/activity_default_margin"
-        android:layout_marginBottom="@dimen/activity_default_margin"
+
+    <LinearLayout
+        android:id="@+id/linearMenuPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/CardView"
-        >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
-        <Button
-            android:id="@+id/btNewsPostDraft"
-            android:layout_width="72dp"
-            android:layout_height="wrap_content"
-            android:elevation="1dp"
-            android:text="Draft" />
-
-        <ImageButton
-            android:id="@+id/ibNewsPostDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_delete_black_24dp" />
+            <Button
+                android:id="@+id/btNewsPostDraft"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                android:text="Draft" />
 
 
-        <ImageButton
-            android:id="@+id/ibNewsPostChild"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_group_add_black_24dp" />
+            <ImageButton
+                android:id="@+id/ibNewsPostChild"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_group_add_black_24dp" />
 
-        <ImageButton
-            android:id="@+id/ibNewsPostImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
+            <ImageButton
+                android:id="@+id/ibNewsPostImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_photo_camera_black_24dp" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/btNewsPostSend"
-            android:layout_height="match_parent"
-            android:layout_width="72dp"
-            android:text="Post" />
+            <Button
+                android:id="@+id/btNewsPostSend"
+                android:layout_width="72dp"
+                android:layout_height="match_parent"
+                android:text="Post" />
+
+            <ImageButton
+                android:id="@+id/ibNewsPostDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_delete_black_24dp" />
     </LinearLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+
+</RelativeLayout>

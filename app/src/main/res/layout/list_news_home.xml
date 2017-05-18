@@ -13,8 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/top_down_margin"
-            android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/top_down_margin"
+            android:layout_marginStart="@dimen/top_down_margin"
             android:layout_marginTop="@dimen/top_down_margin"
             android:orientation="vertical">
 
@@ -53,6 +53,7 @@
             <TextView
                 android:id="@+id/tvHomeItemDescription"
                 android:layout_width="match_parent"
+                android:textColor="@color/colorText87"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/top_down_margin"
                 android:layout_marginBottom="@dimen/top_down_margin"

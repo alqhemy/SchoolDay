@@ -23,6 +23,8 @@ data class NewsModel(
     val userId: String,
     val userName: String,
     val userTitle: String,
-    val timeCreated: Date
+    val timeCreated: Date,
+    val comments: ArrayList<Comment>?
 )
 
+data class Comment(val comment: String, val user: String, val title: String, val timeCreated: Date )

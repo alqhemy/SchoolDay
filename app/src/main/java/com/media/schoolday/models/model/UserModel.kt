@@ -1,15 +1,14 @@
 package com.media.schoolday.models.model
 
 import com.google.gson.annotations.SerializedName
-import com.media.schoolday.models.model.Entity.UserEntity
 
 /**
 * Created by yosi on 03/05/2017.
 */
 
-class ResponUser( val data: UserEntity)
+class ResponUser( val data: User)
 
-class ResponProfile(val user: Profile, val teacher: Teacher, val child: ArrayList<Student>)
+class ResponProfile(val user: Profile, val child: ArrayList<Student>,val teacher: ArrayList<Teacher>)
 
 data class User(val email: String, val uid: String, val name: String, val token: String)
 

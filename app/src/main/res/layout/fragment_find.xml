@@ -1,54 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginEnd="@dimen/default_margin"
-    android:layout_marginStart="@dimen/default_margin"
+    android:layout_marginEnd="@dimen/top_down_margin"
+    android:layout_marginStart="@dimen/top_down_margin"
+    android:layout_marginTop="@dimen/default_margin"
+    android:layout_marginBottom="@dimen/default_margin"
     android:orientation="vertical">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_weight="1"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/schroolReadMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
 
-        <EditText
-            android:id="@+id/etAccountRegisterSchool"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Sekolah" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <include
+                android:id="@+id/include2"
+                layout="@layout/list_news_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               />
 
-        <EditText
-            android:id="@+id/etAccountRegisterNik"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nomor induk siswa" />
+            <LinearLayout
+                android:id="@+id/linearReadPicture"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/default_margin"
+                android:orientation="vertical">
 
-    </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/btAccoutRegister"
-        style="@style/FirebaseUI.Button"
-        android:layout_height="48dp"
-        android:background="@color/authui_colorPrimary"
-        android:text="Save"
-        android:textColor="@color/authui_inputTextColor" />
+            <LinearLayout
+                android:id="@+id/linearReadComment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/default_margin"
+                android:orientation="vertical">
 
-    <Space
+                <ListView
+                    android:id="@+id/listReadComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></ListView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:id="@+id/linearMenu">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/comment_view"
+            android:inputType="textShortMessage" />
 
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/imageButton"
+            style="@android:style/Widget.ImageButton"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_send_pink_200_24dp"
+            android:contentDescription="" />
+    </LinearLayout>
+
+</RelativeLayout>

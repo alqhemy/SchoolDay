@@ -28,6 +28,10 @@ object PfUtil{
     fun saveJsonObject(pref: String, key: String, js: JSONObject){
         util.saveJSONObject(pref,key,js)
     }
+
+    fun clear(key: String, value: String){
+        util.remove(key,value)
+    }
 }
 
 class JSONSharedPreferences(ctx : Context) {
@@ -36,23 +40,23 @@ class JSONSharedPreferences(ctx : Context) {
         val settings = c.getSharedPreferences(prefName, 0)
         val editor = settings.edit()
         editor.putString(JSONSharedPreferences.PREFIX.json + key, `object`.toString())
-        editor.commit()
+        editor.apply()
     }
 
     object PREFIX {
-        val json = "json";
+        val json = "json"
     }
 
     fun saveJSONArray(prefName: String, key: String, array: JSONArray) {
         val settings = c.getSharedPreferences(prefName, 0)
         val editor = settings.edit()
         editor.putString(JSONSharedPreferences.PREFIX.json + key, array.toString())
-        editor.commit()
+        editor.apply()
     }
 
     @Throws(JSONException::class)
     fun loadJSONObject(prefName: String, key: String): JSONObject {
-        val settings = c.getSharedPreferences(prefName, 0)
+        val settings = c.getSharedPreferences(prefName,0)
         return JSONObject(settings.getString(JSONSharedPreferences.PREFIX.json + key, "{}"))
     }
 
@@ -67,7 +71,7 @@ class JSONSharedPreferences(ctx : Context) {
         if (settings.contains(JSONSharedPreferences.PREFIX.json + key)) {
             val editor = settings.edit()
             editor.remove(JSONSharedPreferences.PREFIX.json + key)
-            editor.commit()
+            editor.apply()
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.media.schoolday.activity
 
+import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -11,6 +13,7 @@ import com.media.schoolday.R
 import com.media.schoolday.SchoolApp
 import com.media.schoolday.fragment.AcountFragment
 import com.media.schoolday.fragment.NewsFragment
+import com.media.schoolday.fragment.ReadFragment
 import com.media.schoolday.models.model.*
 import com.media.schoolday.utility.DbLocal
 import com.media.schoolday.utility.PfUtil
@@ -25,8 +28,16 @@ class NewsActivity : AppCompatActivity(), AnkoLogger,
         NewsFragment.OnItemSelectedListener,
         AcountFragment.OnItemClickListener {
     lateinit var title:String
+    lateinit var id: String
     var responStatus = false
     lateinit var progres: ProgressDialog
+
+    interface OnItemUpdateListener {
+        fun OnProfileUpdate(args: String)
+    }
+    var callback: OnItemUpdateListener? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         progres = ProgressDialog(this@NewsActivity)
@@ -38,6 +49,8 @@ class NewsActivity : AppCompatActivity(), AnkoLogger,
             setDisplayShowHomeEnabled(true)
         }
         title = intent.getStringExtra("post")
+        id = intent.getStringExtra("id")
+
         if (savedInstanceState == null) {
             getFragment(title)
         }
@@ -46,18 +59,23 @@ class NewsActivity : AppCompatActivity(), AnkoLogger,
             setMessage("Please wait...")
             setCancelable(false)
         }
+        callback = ctx as? OnItemUpdateListener
     }
 
     fun getFragment(title: String) {
         when(title){
             "new" -> {
                 supportActionBar!!.title = "New Post"
-                changeFragment(NewsFragment.getInstance("News Post"),"newsPost") }
-
+                changeFragment(NewsFragment.getInstance("News Post"),"newsPost")
+            }
             "account" -> {
-                supportActionBar!!.title = "Account User"
-                changeFragment(AcountFragment.newInstance("Account"),"account")}
-
+                supportActionBar!!.title = "User Account"
+                changeFragment(AcountFragment.newInstance("Account"),"account")
+            }
+            "read" -> {
+                supportActionBar!!.title = "News detail"
+                changeFragment(ReadFragment.newInstance("News read",id),"readPost")
+            }
         }
     }
     fun changeFragment(f: Fragment, tag: String, cleanStack: Boolean = false) {
@@ -88,6 +106,9 @@ class NewsActivity : AppCompatActivity(), AnkoLogger,
         if (fragmentManager.backStackEntryCount > 1) {
             fragmentManager.popBackStack()
         } else {
+            val data = Intent()
+            data.putExtra("title",title)
+            setResult(Activity.RESULT_OK,data)
             finish()
         }
     }
@@ -105,7 +126,7 @@ class NewsActivity : AppCompatActivity(), AnkoLogger,
     fun registrasi(){
         val sekolah = ArrayList<String>()
 //        var accoutRegister :String? = null
-        DbLocal.schoolList().forEach { sekolah.add(it.nama!!)  }
+        DbLocal.schoolList()?.forEach { sekolah.add(it.nama!!)  }
 
         val account = listOf("Orang tua","Guru")
 
@@ -159,8 +180,8 @@ class NewsActivity : AppCompatActivity(), AnkoLogger,
                     when {
                         isNotEmpty() -> {
                             forEach {
-                                alert(it.nama + ", Proses?") {
-                                    yesButton { updateProfileGuru(ProfileGuru(Guru(it.id,it.sekolah))) }
+                                alert(it.nama + ", Proses ?") {
+                                    yesButton { updateProfileGuru(ProfileGuru(Guru(it.id, it.sekolah))) }
                                 }.show()
                             }
                         }
@@ -190,7 +211,7 @@ class NewsActivity : AppCompatActivity(), AnkoLogger,
                         when {
                             isNotEmpty() -> {
                                 forEach {
-                                    alert(it.nama + ", Proses?") {
+                                    alert(it.nama + ", Proses ?") {
                                         yesButton { updateProfileAnak(ProfilAnak(Anak(it.sekolah, it.nis))) }
                                     }.show()
                                 }
@@ -221,6 +242,7 @@ class NewsActivity : AppCompatActivity(), AnkoLogger,
                 progres.hide()
                 responStatus = true
                 getProfile()
+                callback?.OnProfileUpdate("update")
                 alert("Profile sudah di update"){yesButton {}}.show()
 
             }
@@ -259,8 +281,16 @@ class NewsActivity : AppCompatActivity(), AnkoLogger,
         })
     }
 
-    override fun onSchoolClick(link: String) {
-        alert("Profile sudah di update $link"){yesButton {}}.show()
-        debug { link }
+    override fun OnProfileUpdate(args: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    }
+
+    override fun onPictureClick(link: String) {
+        val list = listOf("Camera","Galery","Crop Image")
+        selector("Pilihan Gambar",list) { i ->
+            val news = supportFragmentManager.findFragmentByTag("newsPost") as NewsFragment
+            news.takePhoto(list[i])
+        }
     }
 }
